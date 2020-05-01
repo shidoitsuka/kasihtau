@@ -1,0 +1,22 @@
+.main {
+  display: flex;
+  justify-content: center;
+}
+
+.head-text {
+  color: white;
+}
+
+.userName {
+  color: black;
+  background: white;
+}
+
+.img {
+  position: fixed;
+  min-width: 100vw;
+  height: 150px;
+  top: 0;
+  background: black;
+  z-index: -1;
+}
