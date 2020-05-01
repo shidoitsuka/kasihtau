@@ -1,0 +1,27 @@
+{
+  "name": "kasihtau",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shidoitsuka/kasihtau.git"
+  },
+  "author": "Brian",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/shidoitsuka/kasihtau/issues"
+  },
+  "homepage": "https://github.com/shidoitsuka/kasihtau#readme",
+  "dependencies": {
+    "better-sqlite3": "^7.0.1",
+    "body-parser": "^1.19.0",
+    "enmap": "^5.2.4",
+    "express": "^4.17.1",
+    "hbs": "^4.1.1"
+  }
+}
