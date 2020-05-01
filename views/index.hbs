@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dasboard | Is Short!</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+    <!-- User Style -->
+    <link href="./assets/css/index_style.css" rel="stylesheet">
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="main">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center title">
+                    <h1 class="h1">KASIH TAU GAK YA?!</h1>
+                </div>
+                <div class="col-12 d-flex justify-content-center sub-title">
+                    <h5>Sebuah platform untuk berkeluh kesah</h5>
+                </div>
+                <div class="col-12 d-flex justify-content-center main-content input-group">
+                    <input type="text" class="form-control col-9" id="input-name"
+                        placeholder="Masukkan nama kalian untuk memulai!" />
+                </div>
+                <div class="col-12 d-flex justify-content-center">
+                    <button type="button" onclick="process();" class="btn col-2 elegant-color white-text">Go!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
+    <script>
+        function process() {
+            const userName = $("#input-name").val();
+            if (!userName.length) {
+                $("#input-name").addClass("error").attr("placeholder", "Mohon isi nama dengan benar!");
+                setTimeout(function () {
+                    $("#input-name").removeClass("error").attr("placeholder", "Masukkan nama kalian untuk memulai!");
+                }, 3000);
+            } else {
+                $.ajax({
+                    url: "/process",
+                    method: "POST",
+                    data: {
+                        userName
+                    },
+                    success: function (res) {
+                        console.log(res);
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dasboard | Is Short!</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/css/mdb.min.css" rel="stylesheet">
+    <!-- User Style -->
+    <link href="./assets/css/user_style.css" rel="stylesheet">
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="img" />
+    <div class="container">
+        <div class="main row mt-5">
+            <div class="col-12">
+                <!-- get "name" variable from backend and render it -->
+                <h1 class="h1 head-text text-center">Mau kasih tau <span class="userName">{{name}}</span> apa nih?</h1>
+            </div>
+            <div class="main-content mt-5">
+                <!-- get "dataExisted" variable from backend -->
+                {{#if dataExisted}}
+                    <!-- if true, render messages -->
+                    {{#each messages}}
+
+                    {{/each}}
+                    <!-- otherwise, render "no data yet" for user -->
+                {{else}}
+                    <div class="no-data text-center">
+                        <h3><strong>Kayaknya belum ada yang komentar deh.</strong></h3>
+                        <h5><small class="text-muted">Kenapa nggak kamu aja yang duluan komentar?</small></h5>
+                    </div>
+                {{/if}}
+                <div class="col-12 mt-5 input-group">
+                    <h5 class="col-12 h5">Komentar sebagai :</h5>
+                    <input type="text" class="form-control col-12" id="input-name" />
+                </div>
+                <div class="col-12 mt-3 input-group">
+                    <h5 class="col-12 h5">Pesan :</h5>
+                    <textarea class="form-control col-12" id="comment" rows="5"></textarea>
+                </div>
+                <div class="col-12 mt-2 input-group d-flex justify-content-center">
+                    <button type="button" onclick="process();" class="btn col-12 col-lg-7">Kirim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
+    <script>
+        function comment() {
+            const userName = $("#input-name").val();
+            if (userName.length <= 3) {
+                $("#input-name").addClass("error").attr("placeholder", "Mohon isi nama dengan benar!");
+                setTimeout(function () {
+                    $("#input-name").removeClass("error").attr("placeholder", "Masukkan nama kalian untuk memulai!");
+                }, 3000);
+            } else {
+                $.ajax({
+                    url: "/process",
+                    method: "POST",
+                    data: {
+                        userName
+                    },
+                    success: function (res) {
+                        console.log(res);
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>
