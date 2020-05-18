@@ -25,7 +25,7 @@
 </head>
 
 <body>
-    <div class="img" />
+    <div class="img stylish-color-dark"></div>
     <div class="container">
         <div class="main row mt-5">
             <div class="col-12">
@@ -35,28 +35,52 @@
             <div class="main-content mt-5">
                 <!-- get "dataExisted" variable from backend -->
                 {{#if dataExisted}}
+                    <div class="col-12 mx-auto">
+                        <div class="col-12 mt-4 input-group">
+                            <h5 class="col-12 h5">Komentar sebagai :</h5>
+                            <input type="text" class="form-control col-12" id="input-name" placeholder="Nama samaran" />
+                        </div>
+                        <div class="col-12 mt-3 input-group">
+                            <h5 class="col-12 h5">Pesan :</h5>
+                            <textarea class="form-control col-12" id="comment" rows="5"></textarea>
+                        </div>
+                        <div class="col-12 mt-2 input-group d-flex justify-content-center">
+                            <button type="button" onclick="comment();" class="btn col-12 col-lg-7">Kirim</button>
+                        </div>
+                    </div>
                     <!-- if true, render messages -->
-                    {{#each messages}}
-
-                    {{/each}}
+                    <div class="col-12">
+                        {{#each messages}}
+                            {{#each this}}
+                                <div class="comment-container col-12 my-3 stylish-color-dark">
+                                    <div>
+                                        <h6 class="comment-userName text-white-50">{{ @key }}</h6>
+                                    </div>
+                                    <div>
+                                        <h3 class="comment-message">{{ this }}</h3>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        {{/each}}
+                    </div>
                     <!-- otherwise, render "no data yet" for user -->
                 {{else}}
                     <div class="no-data text-center">
                         <h3><strong>Kayaknya belum ada yang komentar deh.</strong></h3>
                         <h5><small class="text-muted">Kenapa nggak kamu aja yang duluan komentar?</small></h5>
                     </div>
+                    <div class="col-12 mt-4 input-group">
+                        <h5 class="col-12 h5">Komentar sebagai :</h5>
+                        <input type="text" class="form-control col-12" id="input-name" placeholder="Nama samaran" />
+                    </div>
+                    <div class="col-12 mt-3 input-group">
+                        <h5 class="col-12 h5">Pesan :</h5>
+                        <textarea class="form-control col-12" id="comment" rows="5"></textarea>
+                    </div>
+                    <div class="col-12 mt-2 input-group d-flex justify-content-center">
+                        <button type="button" onclick="comment();" class="btn col-12 col-lg-7">Kirim</button>
+                    </div>
                 {{/if}}
-                <div class="col-12 mt-5 input-group">
-                    <h5 class="col-12 h5">Komentar sebagai :</h5>
-                    <input type="text" class="form-control col-12" id="input-name" />
-                </div>
-                <div class="col-12 mt-3 input-group">
-                    <h5 class="col-12 h5">Pesan :</h5>
-                    <textarea class="form-control col-12" id="comment" rows="5"></textarea>
-                </div>
-                <div class="col-12 mt-2 input-group d-flex justify-content-center">
-                    <button type="button" onclick="process();" class="btn col-12 col-lg-7">Kirim</button>
-                </div>
             </div>
         </div>
     </div>
@@ -73,22 +97,28 @@
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.16.0/js/mdb.min.js"></script>
     <script>
+        function random(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+        const randomName = ["Alan", "Andy", "Colton", "David", "D"]
         function comment() {
+            const userID = location.pathname.slice("1");
             const userName = $("#input-name").val();
+            const message = $("#comment").val();
             if (userName.length <= 3) {
-                $("#input-name").addClass("error").attr("placeholder", "Mohon isi nama dengan benar!");
+                $("#input-name").addClass("error").attr("placeholder", "Mohon isi nama!");
                 setTimeout(function () {
-                    $("#input-name").removeClass("error").attr("placeholder", "Masukkan nama kalian untuk memulai!");
+                    $("#input-name").removeClass("error").attr("placeholder", "Nama samaran");
                 }, 3000);
             } else {
                 $.ajax({
-                    url: "/process",
+                    url: "/comment",
                     method: "POST",
                     data: {
-                        userName
+                        userID, userName, message
                     },
                     success: function (res) {
-                        console.log(res);
+                        location.reload();
                     }
                 });
             }

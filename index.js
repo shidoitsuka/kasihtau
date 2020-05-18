@@ -77,6 +77,12 @@ app.post("/process", (req, res) => {
   res.end();
 });
 
+app.post("/comment", (req, res) => {
+  const { userID, userName, message } = req.body;
+  db.push(userID, { [userName]: message }, "messages")
+  res.end();
+});
+
 // dynamic route to get user id
 app.get("/:id", (req, res) => {
   // get the id from parameter
